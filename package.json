@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "compile": "hardhat compile",
+    "test": "hardhat test",
     "deploy": "hardhat run scripts/deploy.js --network fuji",
+    "cast-payment": "hardhat run scripts/castPayment.js --network fuji",
     "read-payments": "hardhat run scripts/readPayments.js --network fuji",
     "verify": "hardhat verify"
   },
