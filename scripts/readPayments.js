@@ -10,8 +10,10 @@ async function main() {
   const deployment = JSON.parse(fs.readFileSync(artifactPath, 'utf8'));
   const PaymentLog = await ethers.getContractFactory('PaymentLog');
   const paymentLog = PaymentLog.attach(deployment.address);
+  const currentBlock = await ethers.provider.getBlockNumber();
+  const fromBlock = Math.max(0, currentBlock - 500);
   const filter = paymentLog.filters.PaymentRecorded();
-  const events = await paymentLog.queryFilter(filter, -500, 'latest');
+  const events = await paymentLog.queryFilter(filter, fromBlock, 'latest');
 
   console.log(`Found ${events.length} PaymentRecorded events`);
   for (const event of events.reverse()) {
@@ -19,6 +21,7 @@ async function main() {
       label: event.args.label,
       amount: ethers.formatEther(event.args.amount),
       sender: event.args.sender,
+      recordedAt: event.args.recordedAt?.toString(),
       tx: event.transactionHash,
     });
   }

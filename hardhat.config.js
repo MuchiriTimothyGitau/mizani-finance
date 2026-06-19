@@ -1,7 +1,7 @@
 require('@nomicfoundation/hardhat-toolbox');
 require('dotenv').config();
 
-const PRIVATE_KEY = process.env.PRIVATE_KEY || '';
+const PRIVATE_KEY = process.env.PRIVATE_KEY || process.env.CORE_WALLET_PRIVATE_KEY || '';
 const FUJI_RPC_URL = process.env.FUJI_RPC_URL || 'https://api.avax-testnet.com/ext/bc/C/rpc';
 
 module.exports = {
