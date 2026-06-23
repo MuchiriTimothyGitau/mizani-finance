@@ -1,18 +1,12 @@
 {
-  "name": "mizani-deploy",
-  "version": "0.1.0",
+  "name": "mizani",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "compile": "hardhat compile",
-    "test": "hardhat test",
-    "deploy": "hardhat run scripts/deploy.js --network fuji",
-    "cast-payment": "hardhat run scripts/castPayment.js --network fuji",
-    "read-payments": "hardhat run scripts/readPayments.js --network fuji",
-    "verify": "hardhat verify"
-  },
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "dotenv": "latest",
-    "hardhat": "^2.22.19"
+    "dev": "cd mizani-frontend && npm run dev",
+    "build": "cd mizani-frontend && npm run build",
+    "deploy:functions": "node scripts/deploy-functions.js",
+    "deploy:frontend": "npm run build && vercel --prod",
+    "install:all": "cd mizani-frontend && npm install && cd ../mizani-backend/functions/config && npm install && cd ../score-csv && npm install && cd ../generate-report && npm install && cd ../onchain-payments && npm install"
   }
 }
