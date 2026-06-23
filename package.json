@@ -10,5 +10,10 @@
     "deploy:functions": "node scripts/deploy-functions.js",
     "deploy:frontend": "npm run build && vercel --prod",
     "install:all": "cd mizani-frontend && npm install && cd ../mizani-backend/functions/config && npm install && cd ../score-csv && npm install && cd ../generate-report && npm install && cd ../onchain-payments && npm install"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.1.2",
+    "dotenv": "^17.4.2",
+    "hardhat": "^2.28.6"
   }
 }
