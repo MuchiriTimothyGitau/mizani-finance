@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 
-const service = 'mizani-core';
+const service = 'mizani_core';
 const version = '0.1.0';
 const PAYMENT_LOG_ADDRESS = process.env.PAYMENT_LOG_ADDRESS;
 const FUJI_RPC_URL = process.env.FUJI_RPC_URL;
