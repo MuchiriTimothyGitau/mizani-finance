@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
     "dev": "cd mizani-frontend && npm run dev",
     "build": "cd mizani-frontend && npm run build",
     "deploy:functions": "node scripts/deploy-functions.js",
