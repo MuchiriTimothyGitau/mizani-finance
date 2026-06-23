@@ -8,3 +8,7 @@ typechain-types
 coverage
 coverage.json
 .DS_Store
+*odoo*
+*Odoo*
+mizani_frontend_odoo_module_verify
+odoo_addons
