@@ -5,6 +5,8 @@
   "scripts": {
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
+    "test:unit": "node --test 'test/unit/*.test.js'",
+    "test:all": "npm run test && npm run test:unit",
     "dev": "cd mizani-frontend && npm run dev",
     "build": "cd mizani-frontend && npm run build",
     "deploy:functions": "node scripts/deploy-functions.js",

@@ -7,7 +7,7 @@ const FUJI_RPC_URL = process.env.FUJI_RPC_URL;
 const FUJI_EXPLORER_URL = process.env.FUJI_EXPLORER_URL || 'https://testnet.snowtrace.io';
 const MAX_PAYMENTS = 100;
 
-function parsePaymentLogConfig() {
+export function parsePaymentLogConfig() {
   const abi = [
     "event PaymentRecorded(address indexed sender, string label, uint256 amount, uint256 recordedAt)",
     "function recordPayment(string label, uint256 amount) external"
@@ -21,7 +21,7 @@ function parsePaymentLogConfig() {
   };
 }
 
-function sanitizeErrorMessage(message) {
+export function sanitizeErrorMessage(message) {
   if (!message) return 'Operation failed';
   if (typeof message !== 'string') return 'Operation failed';
   const trimmed = message.trim();
@@ -37,42 +37,42 @@ const EXPENSE_CONCENTRATION_THRESHOLD = 0.35;
 const BURN_ACCELERATION_THRESHOLD = 0.25;
 const DAYS_SINCE_INFLOW_WARNING = 30;
 
-function parseAmount(value) {
+export function parseAmount(value) {
   if (value === undefined || value === null || value === '') return NaN;
   return Number(String(value).replace(/,/g, '').trim());
 }
 
-function parseDate(value) {
+export function parseDate(value) {
   if (!value) return null;
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
-function monthsBetween(startDate, endDate) {
+export function monthsBetween(startDate, endDate) {
   if (!startDate || !endDate) return DEFAULT_MONTHS;
   const diffMs = endDate.getTime() - startDate.getTime();
   const diffMonths = diffMs / (1000 * 60 * 60 * 24 * 30.4375);
   return Math.max(1, diffMonths);
 }
 
-function daysBetween(startDate, endDate) {
+export function daysBetween(startDate, endDate) {
   if (!startDate || !endDate) return null;
   return Math.max(0, Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)));
 }
 
-function ratio(numerator, denominator) {
+export function ratio(numerator, denominator) {
   return denominator > 0 ? numerator / denominator : 0;
 }
 
-function isRoundWithdrawal(amount) {
+export function isRoundWithdrawal(amount) {
   return amount < 0 && Math.abs(amount) >= 1000 && Math.abs(amount) % 1000 === 0;
 }
 
-function isOpeningBalance(row) {
+export function isOpeningBalance(row) {
   return row.amount > 0 && /opening|balance|brought forward/i.test(row.description || '');
 }
 
-function averageOutflowPerTransaction(rows) {
+export function averageOutflowPerTransaction(rows) {
   const outflows = rows.filter((row) => row.amount < 0);
   return outflows.length ? Math.abs(outflows.reduce((sum, row) => sum + row.amount, 0)) / outflows.length : 0;
 }

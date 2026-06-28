@@ -2,12 +2,12 @@ const service = 'mizani-generate-report';
 const version = '0.1.0';
 const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
 
-function safeScoreForReport(score) {
+export function safeScoreForReport(score) {
   const { transactions, ...safe } = score || {};
   return safe;
 }
 
-function sanitizeErrorMessage(message) {
+export function sanitizeErrorMessage(message) {
   if (!message) return 'DeepSeek report failed';
   if (typeof message !== 'string') return 'DeepSeek report failed';
   const trimmed = message.trim();
