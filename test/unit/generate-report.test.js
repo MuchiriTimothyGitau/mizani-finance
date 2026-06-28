@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { safeScoreForReport, sanitizeErrorMessage } from '../../functions/generate-report/index.js';
+import { safeScoreForReport } from '../../functions/generate-report/index.js';
+import { sanitizeErrorMessage } from '../../functions/config/index.js';
 
 describe('safeScoreForReport', () => {
   it('strips transactions from a score object', () => {
@@ -37,16 +38,16 @@ describe('safeScoreForReport', () => {
 
 describe('sanitizeErrorMessage', () => {
   it('returns default for null', () => {
-    assert.equal(sanitizeErrorMessage(null), 'DeepSeek report failed');
+    assert.equal(sanitizeErrorMessage(null), 'Operation failed');
   });
   it('returns default for undefined', () => {
-    assert.equal(sanitizeErrorMessage(undefined), 'DeepSeek report failed');
+    assert.equal(sanitizeErrorMessage(undefined), 'Operation failed');
   });
   it('returns default for non-string', () => {
-    assert.equal(sanitizeErrorMessage(42), 'DeepSeek report failed');
+    assert.equal(sanitizeErrorMessage(42), 'Operation failed');
   });
   it('returns default for empty string', () => {
-    assert.equal(sanitizeErrorMessage(''), 'DeepSeek report failed');
+    assert.equal(sanitizeErrorMessage(''), 'Operation failed');
   });
   it('trims whitespace', () => {
     assert.equal(sanitizeErrorMessage('  some error  '), 'some error');

@@ -2,7 +2,7 @@ const service = 'mizani-generate-report';
 const version = '0.1.0';
 const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
 
-function safeScoreForReport(score) {
+export function safeScoreForReport(score) {
   const { transactions, ...safe } = score || {};
   return safe;
 }
@@ -18,7 +18,7 @@ function sanitizeErrorMessage(message) {
 export default async function(req, res) {
   try {
     if (!DEEPSEEK_API_KEY) {
-      return res.json({ service, version, ok: false, error: 'AI service is not configured' }, 500);
+      return res.status(500).json({ service, version, ok: false, error: 'AI service is not configured' });
     }
 
     const safeScore = safeScoreForReport(req.body?.score);
@@ -55,13 +55,13 @@ Return a practical note with:
     const data = await response.json();
     if (!response.ok) {
       const errorMessage = data?.error?.message || data?.message || 'DeepSeek report failed';
-      return res.json({ service, version, ok: false, error: sanitizeErrorMessage(errorMessage) }, response.status);
+      return res.status(response.status).json({ service, version, ok: false, error: sanitizeErrorMessage(errorMessage) });
     }
 
     const text = data.choices?.[0]?.message?.content || '';
     return res.json({ service, version, report: text, generatedAt: new Date().toISOString() });
   } catch (err) {
     const message = err?.message || 'DeepSeek report failed';
-    return res.json({ service, version, ok: false, error: sanitizeErrorMessage(message) }, 500);
+    return res.status(500).json({ service, version, ok: false, error: sanitizeErrorMessage(message) });
   }
 }
